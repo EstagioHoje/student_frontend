@@ -1,0 +1,36 @@
+{
+  "name": "frontend_website_template",
+  "version": "1.0.0",
+  "description": "",
+  "source": "src/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel src/index.html",
+    "build": "parcel build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "parcel": "^2.8.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom":"^6.9.0",
+    "axios": "^0.27.2",
+    "semantic-ui-react": "^2.1.4",
+    "@mui/material":"latest",
+    "@emotion/react":"^11.10.6",
+    "@emotion/styled":"^11.10.6",
+    "react-imask":"^6.4.3",
+    "react-number-format":"^5.1.4",
+    "mui-tel-input":"^3.1.1",
+    "react-phone-number-input":"^3.2.19",
+    "react-input-mask":"^2.0.4",
+    "react-use-localstorage":"^3.5.3"
+  },
+  "devDependencies": {
+    "parcel": "latest"
+  }
+}
