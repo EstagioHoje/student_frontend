@@ -6,6 +6,4 @@ COPY . ./
 
 RUN yarn
 
-EXPOSE 1234
-
 CMD ["yarn", "dev"]

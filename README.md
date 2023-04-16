@@ -5,7 +5,7 @@
 
 # Estágio Hoje
 
-> Website para professores do projeto Estágio Hoje da diciplina PCS3553 - Laboratório de Engenharia de Software II
+> Website para Alunos do projeto Estágio Hoje da diciplina PCS3553 - Laboratório de Engenharia de Software II
 
 ## 🚀 How to execute
 
