@@ -33,16 +33,12 @@ export default function AlunoCreate({ setAuthorized }) {
     const [resumee, Set_resumee] = useState("");
     const [student_university_id, Set_student_university_id] = useState([]);
 
-
-
     useEffect(() => {
         function handleResize() {
             setWindowHeight(window.innerHeight)
             setWindowWidth(window.innerWidth)
         }
-
         window.addEventListener('resize', handleResize);
-
         return _ => {
             window.removeEventListener('resize', handleResize);
         }
@@ -54,9 +50,7 @@ export default function AlunoCreate({ setAuthorized }) {
         console.log(aluno_post(student_name, cpfStringMod, student_course, student_college, student_entry_year,
             student_email, resumee, student_university_id, student_school, student_telephone, student_address, 
             student_cep, student_city, student_address, student_state, student_complement))
-
     }
-
 
     return (
         <Container disableGutters maxWidth={windowWidth} sx={{ padding: 0 }}>
