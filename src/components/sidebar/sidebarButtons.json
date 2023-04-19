@@ -1,7 +1,7 @@
 [
   {
     "imgSrc": "../../images/jobOffers.svg",
-    "imgAlt": "Vagas",
+    "imgAlt": "Procure vagas",
     "service": "/vagas"
   },{
     "imgSrc": "../../images/handWithPencil.svg",
