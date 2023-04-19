@@ -48,27 +48,29 @@ export default function AlunoCreate() {
   const register_aluno = async () => {
     let cpfString = String(student_cpf).replace(/\D/g, '')
     let student = await aluno_get_search(cpfString)
-    if (student.data.data[0] === undefined) {
-      let response = await aluno_post(
-        student_name,
-        student_course,
-        cpfString,
-        student_college,
-        student_entry_year,
-        student_email,
-        resumee,
-        student_university_id,
-        student_class_schedule,
-        student_telephone,
-        student_address,
-        student_cep,
-        student_city,
-        student_address,
-        student_state,
-        student_complement,
-        student_school
-      )
-      // console.log(response)
+    if (student != null) {
+      if (student.data.data[0] === undefined) {
+        let response = await aluno_post(
+          student_name,
+          student_course,
+          cpfString,
+          student_college,
+          student_entry_year,
+          student_email,
+          resumee,
+          student_university_id,
+          student_class_schedule,
+          student_telephone,
+          student_address,
+          student_cep,
+          student_city,
+          student_address,
+          student_state,
+          student_complement,
+          student_school
+        )
+        // console.log(response)
+      }
     }
     navigate('/login')
   }
