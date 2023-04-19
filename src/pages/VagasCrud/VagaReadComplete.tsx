@@ -22,7 +22,7 @@ import { vaga_apply } from '../../actions/Vaga';
 
 export default function VagaReadComplete({ setAuthorized }) {
   const navigate = useNavigate()
-  const cpf = sessionStorage.getItem("cpf")
+  const [cpf, setCPF] = useState(sessionStorage.getItem("cpf"));
   const params = new URLSearchParams(window.location.search);
 
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);

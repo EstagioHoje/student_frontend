@@ -16,7 +16,7 @@ import { Sidebar } from '../../components/sidebar/sidebar';
 
 export default function AlunoReadUpdateDelete({ setAuthorized }) {
   const navigate = useNavigate()
-  const student_cpf = sessionStorage.getItem('cpf')
+  const [student_cpf, set_student_cpf] = useState(sessionStorage.getItem("cpf"));
 
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);

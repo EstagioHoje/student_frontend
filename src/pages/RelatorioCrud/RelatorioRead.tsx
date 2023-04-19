@@ -12,125 +12,119 @@ import Link from '@mui/material/Link';
 import { Collapse } from '@mui/material';
 
 import { Sidebar } from '../../components/sidebar/sidebar';
-import { relatorio_get_all_cpf } from '../../actions/Relatorio';
+import { empresa_get_search, relatorio_get_all_cpf } from '../../actions/Relatorio';
 
 
 export default function RelatorioRead({ setAuthorized }) {
-    const [expanded, setExpanded] = useState(true);
-    const navigate = useNavigate();
-    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const [cnpj, setCnpj] = useState(localStorage.getItem("cnpj"))
-    const [rows, setRows] = useState([])
-    const [cpf, setCPF] = useState(localStorage.getItem("cpf"));
+  const [expanded, setExpanded] = useState(true);
+  const navigate = useNavigate();
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [cnpj, setCnpj] = useState(sessionStorage.getItem("cnpj"))
+  const [rows, setRows] = useState([])
+  const [cpf, setCPF] = useState(sessionStorage.getItem("cpf"));
 
 
-    const columns: GridColDef[] = [
-        {
-            field: 'id', headerName: 'id', width: 300,renderCell: (params) => (
-                <Link component={RouterLink} to={`/relatorio/create?id=${params.value}`}>
-                    {params.value}
-                </Link>),
-        },
-        /*{
-            field: 'student_name', headerName: 'Nome do estágiario', width: 300
-        },
-        {
-            field: 'student_cpf', headerName: 'CPF do estágiario', width: 250
-        },*/
-        {
-            field: 'start_date', headerName: 'Inicio do estágio', width: 180
-        },
-        {
-            field: 'end_date', headerName: 'Fim do estágio', width: 180
-        },
-    ];
-    useEffect(() => {
+  const columns: GridColDef[] = [{
+    field: 'id',
+    headerName: '',
+    width: 300,
+    renderCell: (params) => (
+      <Link component={RouterLink} to={`/relatorio/create?id=${params.value}`}>
+        Acessar
+      </Link>),
+  }, {
+    field: 'company_name',
+    headerName: 'Empresa',
+    width: 300
+  }, {
+    field: 'start_date',
+    headerName: 'Inicio do estágio',
+    width: 180
+  }, {
+    field: 'end_date',
+    headerName: 'Fim do estágio',
+    width: 180
+  }];
+  useEffect(() => {
 
-        (async () => {
-            let info = await relatorio_get_all_cpf(cpf);
-            console.log(info);
-            console.log(info.data);
-            if (info != null) {
-                if (info.data != null) {
-                    if (info.data[0] != null) {
-                        const teste = info.data.reduce(function(result,element) {
-                            const arrayRelatorio = {};
-                            arrayRelatorio.id = element.id;
-                            //arrayRelatorio.student_name = element.student_name;
-                            //arrayRelatorio.student_cpf = element.student_cpf;
-                            //arrayRelatorio.start_date = element.contract_data;
-                            //arrayRelatorio.end_date = element.contract_data;
-                            result.push(arrayRelatorio)
-                            return result;
-                        },[]);
-                        console.log(teste)
-                        setRows(teste);
-                    }
-                }
-
-            }
-
+    (async () => {
+      let info = await relatorio_get_all_cpf(cpf);
+      console.log(info);
+      console.log(info.data);
+      if (info != null) {
+        if (info.data != null) {
+          if (info.data[0] != null) {
+            const teste = info.data.reduce(async function (result, element) {
+              let cnpj = element.company_cnpj;
+              const arrayRelatorio = {};
+              arrayRelatorio.id = element.id;
+              arrayRelatorio.company_name = await empresa_get_search(cnpj).data[0].name
+              arrayRelatorio.start_date = element.contract_data;
+              arrayRelatorio.end_date = element.contract_data;
+              result.push(arrayRelatorio)
+              return result;
+            }, []);
+            console.log(teste)
+            setRows(teste);
+          }
         }
-        )()
+      }
+    }
+    )()
+  }, []);
 
-    }, []);
+  useEffect(() => {
+    function handleResize() {
+      setWindowHeight(window.innerHeight)
+      setWindowWidth(window.innerWidth)
+    }
+    window.addEventListener('resize', handleResize);
+    return _ => {
+      window.removeEventListener('resize', handleResize);
+    }
+  })
 
-
-    useEffect(() => {
-        function handleResize() {
-            setWindowHeight(window.innerHeight)
-            setWindowWidth(window.innerWidth)
-        }
-
-        window.addEventListener('resize', handleResize);
-
-        return _ => {
-            window.removeEventListener('resize', handleResize);
-        }
-    })
-
-
-    return (
-        <Container disableGutters maxWidth={windowWidth} sx={{ padding: 0 }}>
-            <Box sx={{ minWidth: 600, minHeight: 300, height: windowHeight, padding: 0, mb: 0 }}>
-                <Grid container spacing={0}>
-                    <Grid xs sx={{ maxWidth: 240, minWidth: 240 }}>
-                        <Sidebar
-                            setAuthorized={setAuthorized}>
-                        </Sidebar>
-                    </Grid>
-                    <Grid xs sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        height: windowHeight,
-                        minHeight: 400,
-                        minWidth: 360,
-                        overflow: "hidden",
-                        overflowY: "scroll",
-                    }}>
-                        <Box sx={{ width: '100%', height: '100%' }}>
-                            <DataGrid
-                                rows={rows}
-                                columns={columns}
-                                initialState={{
-                                    pagination: {
-                                        paginationModel: {
-                                            pageSize: 20,
-                                        },
-                                    },
-                                }}
-                                slots={{
-                                    toolbar: GridToolbar,
-                                }}
-                                disableRowSelectionOnClick
-                            />
-                        </Box>
-                    </Grid>
-                </Grid>
+  return (
+    <Container disableGutters maxWidth={windowWidth} sx={{ padding: 0 }}>
+      <Box sx={{ minWidth: 600, minHeight: 300, height: windowHeight, padding: 0, mb: 0 }}>
+        <Grid container spacing={0}>
+          <Grid sx={{ maxWidth: 240, minWidth: 240 }}>
+            <Sidebar
+              setAuthorized={setAuthorized}>
+            </Sidebar>
+          </Grid>
+          <Grid xs sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: windowHeight,
+            minHeight: 400,
+            minWidth: 360,
+            overflow: "hidden",
+            overflowY: "scroll",
+          }}>
+            <Box sx={{ width: '100%', height: '100%' }}>
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                initialState={{
+                  pagination: {
+                    paginationModel: {
+                      pageSize: 20,
+                    },
+                  },
+                }}
+                slots={{
+                  toolbar: GridToolbar,
+                }}
+                disableRowSelectionOnClick
+              />
             </Box>
-        </Container>
-    );
+          </Grid>
+        </Grid>
+      </Box>
+    </Container>
+  );
 }
 
 
