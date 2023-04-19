@@ -367,7 +367,7 @@ export default function AlunoReadUpdateDelete({ setAuthorized }) {
                         id='resumee'
                         value={resumee}
                         fullWidth
-                        label='Coloque o seu curriculo(Máximo 1000 caracteres)'
+                        label='Coloque o seu curriculo (Máximo 1000 caracteres)'
                         onChange={(e) => Set_resumee(e.target.value)}
                         multiline
                         maxRows={4}
@@ -377,14 +377,13 @@ export default function AlunoReadUpdateDelete({ setAuthorized }) {
                   </Grid>
                 </Grid>
               </Box>
-
               <Box sx={{ my: 2 }}>
                 <Grid container spacing={0} columns='16'>
                   <Grid xs>
                     <Box sx={{ my: 2, mr: 1 }}>
                       <Button fullWidth sx={{
-                        backgroundColor: 'yellow'
-
+                        backgroundColor: '#072d69',
+                        color: '#feea37'
                       }}
                         onClick={() => update_aluno()}>
                         Salvar informações
@@ -394,8 +393,8 @@ export default function AlunoReadUpdateDelete({ setAuthorized }) {
                   <Grid xs>
                     <Box sx={{ my: 2, ml: 1 }}>
                       <Button fullWidth sx={{
-                        backgroundColor: 'red'
-
+                        backgroundColor: '#cb1d1d',
+                        color: '#feea37'
                       }}
                         onClick={() => delete_aluno()}>
                         Excluir conta
@@ -404,7 +403,6 @@ export default function AlunoReadUpdateDelete({ setAuthorized }) {
                   </Grid>
                 </Grid>
               </Box>
-
             </Box>
           </Grid>
         </Grid>
